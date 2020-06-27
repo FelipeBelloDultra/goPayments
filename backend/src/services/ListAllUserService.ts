@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 
 import User from '../models/User';
 
-interface UserReturnedInterface {
+interface Response {
   id: string;
   name: string;
   email: string;
@@ -11,7 +11,7 @@ interface UserReturnedInterface {
 }
 
 class ListAllUserService {
-  public async execute(): Promise<UserReturnedInterface[]> {
+  public async execute(): Promise<Response[]> {
     const userRepository = getRepository(User);
 
     const allUsers = await userRepository.find();
