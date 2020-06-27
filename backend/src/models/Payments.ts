@@ -2,9 +2,13 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import User from './User';
 
 @Entity('payments')
 class Payment {
@@ -13,6 +17,13 @@ class Payment {
 
   @Column('timestamp with time zone')
   date: Date;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column()
+  user_id: string;
 
   @Column()
   description: string;

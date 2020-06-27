@@ -10,12 +10,7 @@ userRouter.get('/', async (request, response) => {
 
   const users = await listUsers.execute();
 
-  const filtredUsers = users.map(user => ({
-    ...user,
-    password: undefined,
-  }));
-
-  return response.json(filtredUsers);
+  return response.json(users);
 });
 
 userRouter.post('/', async (request, response) => {
