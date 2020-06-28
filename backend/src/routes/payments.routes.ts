@@ -2,6 +2,8 @@ import { Router } from 'express';
 
 import ListAllPaymentService from '../services/ListAllPaymentService';
 import ListOnePaymentService from '../services/ListOnePaymentService';
+import ListPendingPaymentService from '../services/ListPendingPaymentService';
+import ListPaidPaymentService from '../services/ListPaidPaymentService';
 import CreatePaymentService from '../services/CreatePaymentService';
 
 const userRouter = Router();
@@ -24,6 +26,26 @@ userRouter.get('/:id', async (request, response) => {
   const payment = await listOnePayments.execute({ id });
 
   return response.json(payment);
+});
+
+userRouter.get('/pending', async (request, response) => {
+  const { id } = request.user;
+
+  const listPayments = new ListPendingPaymentService();
+
+  const payments = await listPayments.execute({ id });
+
+  return response.json(payments);
+});
+
+userRouter.get('/paid', async (request, response) => {
+  const { id } = request.user;
+
+  const listPayments = new ListPaidPaymentService();
+
+  const payments = await listPayments.execute({ id });
+
+  return response.json(payments);
 });
 
 userRouter.post('/', async (request, response) => {
