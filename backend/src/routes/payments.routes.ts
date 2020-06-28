@@ -1,14 +1,15 @@
 import { Router } from 'express';
 
 import ListAllPaymentService from '../services/ListAllPaymentService';
-import ListOnePaymentService from '../services/ListOnePaymentService';
 import ListPendingPaymentService from '../services/ListPendingPaymentService';
 import ListPaidPaymentService from '../services/ListPaidPaymentService';
+import ListOnePaymentService from '../services/ListOnePaymentService';
 import CreatePaymentService from '../services/CreatePaymentService';
+import AlterPaymentStatusService from '../services/AlterPaymentStatusService';
 
-const userRouter = Router();
+const paymentRouter = Router();
 
-userRouter.get('/', async (request, response) => {
+paymentRouter.get('/', async (request, response) => {
   const { id } = request.user;
 
   const listPayments = new ListAllPaymentService();
@@ -18,17 +19,7 @@ userRouter.get('/', async (request, response) => {
   return response.json(payments);
 });
 
-userRouter.get('/:id', async (request, response) => {
-  const { id } = request.params;
-
-  const listOnePayments = new ListOnePaymentService();
-
-  const payment = await listOnePayments.execute({ id });
-
-  return response.json(payment);
-});
-
-userRouter.get('/pending', async (request, response) => {
+paymentRouter.get('/pending', async (request, response) => {
   const { id } = request.user;
 
   const listPayments = new ListPendingPaymentService();
@@ -38,7 +29,7 @@ userRouter.get('/pending', async (request, response) => {
   return response.json(payments);
 });
 
-userRouter.get('/paid', async (request, response) => {
+paymentRouter.get('/paid', async (request, response) => {
   const { id } = request.user;
 
   const listPayments = new ListPaidPaymentService();
@@ -48,7 +39,21 @@ userRouter.get('/paid', async (request, response) => {
   return response.json(payments);
 });
 
-userRouter.post('/', async (request, response) => {
+paymentRouter.get('/:id_payment', async (request, response) => {
+  const { id } = request.user;
+  const { id_payment } = request.params;
+
+  const listOnePayments = new ListOnePaymentService();
+
+  const payment = await listOnePayments.execute({
+    id: id_payment,
+    user_id: id,
+  });
+
+  return response.json(payment);
+});
+
+paymentRouter.post('/', async (request, response) => {
   const { id } = request.user;
   const { title, date, description, value } = request.body;
 
@@ -65,4 +70,18 @@ userRouter.post('/', async (request, response) => {
   return response.json(payments);
 });
 
-export default userRouter;
+paymentRouter.post('/:id_payment', async (request, response) => {
+  const { id } = request.user;
+  const { id_payment } = request.params;
+
+  const alterPaymentStatus = new AlterPaymentStatusService();
+
+  const payment = await alterPaymentStatus.execute({
+    id: id_payment,
+    user_id: id,
+  });
+
+  return response.json({ ...payment, paid: true });
+});
+
+export default paymentRouter;

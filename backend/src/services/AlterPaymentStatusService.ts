@@ -9,20 +9,20 @@ interface Request {
   user_id: string;
 }
 
-class ListAppPaymentService {
+class AlterPaymentStatusService {
   public async execute({ id, user_id }: Request): Promise<Payment> {
-    const paymentsRepository = getRepository(Payment);
+    const paymentRepository = getRepository(Payment);
 
-    const payment = await paymentsRepository.findOne({
-      where: { id, user_id },
-    });
+    const payment = await paymentRepository.findOne({ where: { id, user_id } });
 
     if (!payment) {
       throw new AppError('Payment not found.');
     }
 
+    await paymentRepository.update({ id: payment.id }, { paid: true });
+
     return payment;
   }
 }
 
-export default ListAppPaymentService;
+export default AlterPaymentStatusService;
