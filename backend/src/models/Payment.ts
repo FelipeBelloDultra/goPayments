@@ -24,6 +24,9 @@ class Payment {
   @Column('timestamp with time zone')
   date: Date;
 
+  @Column('boolean')
+  paid: boolean;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;

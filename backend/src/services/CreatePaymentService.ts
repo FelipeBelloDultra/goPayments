@@ -26,6 +26,7 @@ class CreatePaymentService {
       description,
       value,
       user_id: id,
+      paid: false,
     });
 
     await paymentRepository.save(payment);
