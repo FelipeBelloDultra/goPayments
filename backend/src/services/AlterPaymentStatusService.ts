@@ -19,7 +19,7 @@ class AlterPaymentStatusService {
       throw new AppError('Payment not found.');
     }
 
-    await paymentRepository.update({ id: payment.id }, { paid: true });
+    await paymentRepository.update({ id: payment.id }, { status: 'paid' });
 
     return payment;
   }

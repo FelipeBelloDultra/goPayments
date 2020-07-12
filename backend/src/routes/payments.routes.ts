@@ -1,8 +1,6 @@
 import { Router } from 'express';
 
 import ListAllPaymentService from '../services/ListAllPaymentService';
-import ListPendingPaymentService from '../services/ListPendingPaymentService';
-import ListPaidPaymentService from '../services/ListPaidPaymentService';
 import ListOnePaymentService from '../services/ListOnePaymentService';
 import CreatePaymentService from '../services/CreatePaymentService';
 import AlterPaymentStatusService from '../services/AlterPaymentStatusService';
@@ -11,30 +9,14 @@ const paymentRouter = Router();
 
 paymentRouter.get('/', async (request, response) => {
   const { id } = request.user;
+  const { status } = request.query;
 
   const listPayments = new ListAllPaymentService();
 
-  const payments = await listPayments.execute({ id });
-
-  return response.json(payments);
-});
-
-paymentRouter.get('/pending', async (request, response) => {
-  const { id } = request.user;
-
-  const listPayments = new ListPendingPaymentService();
-
-  const payments = await listPayments.execute({ id });
-
-  return response.json(payments);
-});
-
-paymentRouter.get('/paid', async (request, response) => {
-  const { id } = request.user;
-
-  const listPayments = new ListPaidPaymentService();
-
-  const payments = await listPayments.execute({ id });
+  const payments = await listPayments.execute({
+    id,
+    status: String(status || ''),
+  });
 
   return response.json(payments);
 });

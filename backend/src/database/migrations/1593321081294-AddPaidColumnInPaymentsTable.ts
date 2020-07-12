@@ -6,14 +6,14 @@ export default class AddPaidColumnInPaymentsTable1593321081294
     await queryRunner.addColumn(
       'payments',
       new TableColumn({
-        name: 'paid',
-        type: 'boolean',
+        name: 'status',
+        type: 'varchar',
         isNullable: true,
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('payments', 'paid');
+    await queryRunner.dropColumn('payments', 'status');
   }
 }

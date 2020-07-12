@@ -26,7 +26,7 @@ class CreatePaymentService {
       description,
       value,
       user_id: id,
-      paid: false,
+      status: 'pending',
     });
 
     await paymentRepository.save(payment);

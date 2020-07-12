@@ -24,8 +24,8 @@ class Payment {
   @Column('timestamp with time zone')
   date: Date;
 
-  @Column('boolean')
-  paid: boolean;
+  @Column()
+  status: 'paid' | 'pending';
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
