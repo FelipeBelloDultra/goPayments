@@ -8,7 +8,12 @@ export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUsers = container.resolve(ListAllUserService);
 
-    const users = await listUsers.execute();
+    const allUsers = await listUsers.execute();
+
+    const users = allUsers.map(user => ({
+      ...user,
+      password: undefined,
+    }));
 
     return response.json(users);
   }
@@ -19,6 +24,8 @@ export default class UsersController {
     const createUsers = container.resolve(CreateUserService);
 
     const user = await createUsers.execute({ name, email, password });
+
+    delete user.password;
 
     return response.json(user);
   }

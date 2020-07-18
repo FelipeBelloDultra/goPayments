@@ -5,7 +5,7 @@ import Payment from '../infra/typeorm/entities/Payment';
 import IPaymentsRepository from '../repositories/IPaymentsRepository';
 
 interface Request {
-  id: string;
+  user_id: string;
   status?: string;
 }
 
@@ -16,8 +16,8 @@ class ListAppPaymentService {
     private paymentsRepository: IPaymentsRepository,
   ) {}
 
-  public async execute({ id, status }: Request): Promise<Payment[]> {
-    const payments = await this.paymentsRepository.findAll(id, status);
+  public async execute({ user_id, status }: Request): Promise<Payment[]> {
+    const payments = await this.paymentsRepository.findAll(user_id, status);
 
     return payments;
   }

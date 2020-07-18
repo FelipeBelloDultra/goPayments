@@ -14,7 +14,7 @@ class PaymentsController {
     const listPayments = container.resolve(ListAllPaymentService);
 
     const payments = await listPayments.execute({
-      id,
+      user_id: id,
       status: String(status || ''),
     });
 
