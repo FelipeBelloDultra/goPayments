@@ -43,15 +43,7 @@ class PaymentsRespository implements IPaymentsRepository {
   public async create(paymentData: ICreatePaymentDTO): Promise<Payment> {
     const payment = new Payment();
 
-    Object.assign(payment, {
-      id: uuid(),
-      title: paymentData.title,
-      value: payment.value,
-      date: paymentData.date,
-      status: 'pending',
-      user_id: paymentData.user_id,
-      description: paymentData.description,
-    });
+    Object.assign(payment, { id: uuid(), status: 'pending', ...paymentData });
 
     this.payments.push(payment);
 
