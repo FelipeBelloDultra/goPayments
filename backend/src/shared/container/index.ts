@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import '@modules/users/providers';
+
 import IPaymentsRepository from '@modules/payments/repositories/IPaymentsRepository';
 import PaymentsRepository from '@modules/payments/infra/typeorm/repositories/PaymentsRepository';
 

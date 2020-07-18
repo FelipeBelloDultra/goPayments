@@ -20,12 +20,7 @@ class ListAllUserService {
   public async execute(): Promise<Response[]> {
     const allUsers = await this.usersRepository.findAll();
 
-    const users = allUsers.map(user => ({
-      ...user,
-      password: undefined,
-    }));
-
-    return users;
+    return allUsers;
   }
 }
 

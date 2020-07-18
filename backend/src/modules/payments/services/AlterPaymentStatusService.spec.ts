@@ -31,6 +31,7 @@ describe('AlterPaymentStatus', () => {
 
   it('should not be able to change payment status to paid if doesnt exist', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const createPayment = new CreatePaymentService(fakePaymentsRepository);
     const alterPaymentStatus = new AlterPaymentStatusService(
       fakePaymentsRepository,
@@ -54,6 +55,7 @@ describe('AlterPaymentStatus', () => {
 
   it('should not be able to change payment status to paid if already paid', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const createPayment = new CreatePaymentService(fakePaymentsRepository);
     const alterPaymentStatus = new AlterPaymentStatusService(
       fakePaymentsRepository,

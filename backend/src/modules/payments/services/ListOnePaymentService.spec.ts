@@ -7,6 +7,7 @@ import CreatePaymentService from './CreatePaymentService';
 describe('ListOnePayment', () => {
   it('should be able to list one payment of a user', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const listOnePayment = new ListOnePaymentService(fakePaymentsRepository);
     const createPayment = new CreatePaymentService(fakePaymentsRepository);
 
@@ -30,6 +31,7 @@ describe('ListOnePayment', () => {
 
   it('should not be able to list one payment of a user if doesnt exist', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const listOnePayment = new ListOnePaymentService(fakePaymentsRepository);
 
     expect(

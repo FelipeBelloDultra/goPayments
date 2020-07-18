@@ -24,6 +24,7 @@ describe('ListAllPayment', () => {
 
   it('should be able to list all payment of a user and the status to be pending ', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
     const createPayment = new CreatePaymentService(fakePaymentsRepository);
 
@@ -45,6 +46,7 @@ describe('ListAllPayment', () => {
 
   it('should be able to list all payment of a user and the status to be paid ', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
     const createPayment = new CreatePaymentService(fakePaymentsRepository);
     const alterPaymentStatus = new AlterPaymentStatusService(

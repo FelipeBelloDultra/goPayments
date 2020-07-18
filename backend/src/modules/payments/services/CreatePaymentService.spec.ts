@@ -4,6 +4,7 @@ import CreatePaymentService from './CreatePaymentService';
 describe('CreatePayment', () => {
   it('should be able to create a new payment', async () => {
     const fakePaymentsRepository = new FakePaymentsRepository();
+
     const createPayment = new CreatePaymentService(fakePaymentsRepository);
 
     const payment = await createPayment.execute({
