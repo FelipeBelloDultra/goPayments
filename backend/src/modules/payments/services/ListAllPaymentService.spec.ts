@@ -3,12 +3,21 @@ import ListAllPaymentService from './ListAllPaymentService';
 import CreatePaymentService from './CreatePaymentService';
 import AlterPaymentStatusService from './AlterPaymentStatusService';
 
-describe('ListAllPayment', () => {
-  it('should be able to list all payment of a user', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-    const listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
+let fakePaymentsRepository: FakePaymentsRepository;
+let listAllPayment: ListAllPaymentService;
+let createPayment: CreatePaymentService;
+let alterPaymentStatus: AlterPaymentStatusService;
 
+describe('ListAllPayment', () => {
+  beforeEach(() => {
+    fakePaymentsRepository = new FakePaymentsRepository();
+
+    listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
+    createPayment = new CreatePaymentService(fakePaymentsRepository);
+    alterPaymentStatus = new AlterPaymentStatusService(fakePaymentsRepository);
+  });
+
+  it('should be able to list all payment of a user', async () => {
     const payment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',
@@ -23,11 +32,6 @@ describe('ListAllPayment', () => {
   });
 
   it('should be able to list all payment of a user and the status to be pending ', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-
     const payment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',
@@ -45,14 +49,6 @@ describe('ListAllPayment', () => {
   });
 
   it('should be able to list all payment of a user and the status to be paid ', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-    const alterPaymentStatus = new AlterPaymentStatusService(
-      fakePaymentsRepository,
-    );
-
     const payment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',

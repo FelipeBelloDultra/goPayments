@@ -1,12 +1,17 @@
 import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository';
 import CreatePaymentService from './CreatePaymentService';
 
+let fakePaymentsRepository: FakePaymentsRepository;
+let createPayment: CreatePaymentService;
+
 describe('CreatePayment', () => {
+  beforeEach(() => {
+    fakePaymentsRepository = new FakePaymentsRepository();
+
+    createPayment = new CreatePaymentService(fakePaymentsRepository);
+  });
+
   it('should be able to create a new payment', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-
     const payment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',

@@ -4,14 +4,19 @@ import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository
 import AlterPaymentStatusService from './AlterPaymentStatusService';
 import CreatePaymentService from './CreatePaymentService';
 
-describe('AlterPaymentStatus', () => {
-  it('should be able to change payment status to paid', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-    const alterPaymentStatus = new AlterPaymentStatusService(
-      fakePaymentsRepository,
-    );
+let fakePaymentsRepository: FakePaymentsRepository;
+let createPayment: CreatePaymentService;
+let alterPaymentStatus: AlterPaymentStatusService;
 
+describe('AlterPaymentStatus', () => {
+  beforeEach(() => {
+    fakePaymentsRepository = new FakePaymentsRepository();
+
+    createPayment = new CreatePaymentService(fakePaymentsRepository);
+    alterPaymentStatus = new AlterPaymentStatusService(fakePaymentsRepository);
+  });
+
+  it('should be able to change payment status to paid', async () => {
     const newPayment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',
@@ -30,13 +35,6 @@ describe('AlterPaymentStatus', () => {
   });
 
   it('should not be able to change payment status to paid if doesnt exist', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-    const alterPaymentStatus = new AlterPaymentStatusService(
-      fakePaymentsRepository,
-    );
-
     const newPayment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',
@@ -54,13 +52,6 @@ describe('AlterPaymentStatus', () => {
   });
 
   it('should not be able to change payment status to paid if already paid', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-    const alterPaymentStatus = new AlterPaymentStatusService(
-      fakePaymentsRepository,
-    );
-
     const newPayment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',

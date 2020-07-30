@@ -4,13 +4,19 @@ import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository
 import ListOnePaymentService from './ListOnePaymentService';
 import CreatePaymentService from './CreatePaymentService';
 
+let fakePaymentsRepository: FakePaymentsRepository;
+let listOnePayment: ListOnePaymentService;
+let createPayment: CreatePaymentService;
+
 describe('ListOnePayment', () => {
+  beforeEach(() => {
+    fakePaymentsRepository = new FakePaymentsRepository();
+
+    listOnePayment = new ListOnePaymentService(fakePaymentsRepository);
+    createPayment = new CreatePaymentService(fakePaymentsRepository);
+  });
+
   it('should be able to list one payment of a user', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const listOnePayment = new ListOnePaymentService(fakePaymentsRepository);
-    const createPayment = new CreatePaymentService(fakePaymentsRepository);
-
     const payment = await createPayment.execute({
       date: new Date(),
       description: 'Teste',
@@ -30,10 +36,6 @@ describe('ListOnePayment', () => {
   });
 
   it('should not be able to list one payment of a user if doesnt exist', async () => {
-    const fakePaymentsRepository = new FakePaymentsRepository();
-
-    const listOnePayment = new ListOnePaymentService(fakePaymentsRepository);
-
     expect(
       listOnePayment.execute({
         id: '123123',
