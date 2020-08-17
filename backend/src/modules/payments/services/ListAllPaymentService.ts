@@ -16,6 +16,7 @@ class ListAppPaymentService {
     private paymentsRepository: IPaymentsRepository,
   ) {}
 
+  // Cache provider implementation
   public async execute({ user_id, status }: Request): Promise<Payment[]> {
     const payments = await this.paymentsRepository.findAll(user_id, status);
 
