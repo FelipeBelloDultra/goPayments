@@ -44,8 +44,6 @@ class AlterPaymentStatusService {
         status: newPayment.id === id ? 'paid' : newPayment.status,
       }));
 
-      await this.cacheProvider.invalidatePrefix('payments-list');
-
       await this.cacheProvider.save(
         `payments-list:${user_id}`,
         newRecoveredPayments,
