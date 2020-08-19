@@ -14,7 +14,7 @@ export default {
   config: {
     redis: {
       host: '127.0.0.1',
-      port: 3679,
+      port: 6379,
     },
   },
 } as ICacheConfig;

@@ -1,8 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
-import Payment from '../infra/typeorm/entities/Payment';
-
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IPaymentsRepository from '../repositories/IPaymentsRepository';
+
+import Payment from '../infra/typeorm/entities/Payment';
 
 interface Request {
   user_id: string;
@@ -17,6 +18,9 @@ class CreatePaymentService {
   constructor(
     @inject('PaymentsRepository')
     private paymentsRepository: IPaymentsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -33,6 +37,8 @@ class CreatePaymentService {
       value,
       user_id,
     });
+
+    await this.cacheProvider.invalidatePrefix('payments-list');
 
     return payment;
   }
