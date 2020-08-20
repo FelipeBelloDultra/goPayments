@@ -1,19 +1,25 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository';
 import ListOnePaymentService from './ListOnePaymentService';
 import CreatePaymentService from './CreatePaymentService';
 
 let fakePaymentsRepository: FakePaymentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let listOnePayment: ListOnePaymentService;
 let createPayment: CreatePaymentService;
 
 describe('ListOnePayment', () => {
   beforeEach(() => {
     fakePaymentsRepository = new FakePaymentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
 
     listOnePayment = new ListOnePaymentService(fakePaymentsRepository);
-    createPayment = new CreatePaymentService(fakePaymentsRepository);
+    createPayment = new CreatePaymentService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to list one payment of a user', async () => {

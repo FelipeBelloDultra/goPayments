@@ -1,19 +1,28 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository';
 import AlterPaymentStatusService from './AlterPaymentStatusService';
 import CreatePaymentService from './CreatePaymentService';
 
 let fakePaymentsRepository: FakePaymentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createPayment: CreatePaymentService;
 let alterPaymentStatus: AlterPaymentStatusService;
 
 describe('AlterPaymentStatus', () => {
   beforeEach(() => {
     fakePaymentsRepository = new FakePaymentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
 
-    createPayment = new CreatePaymentService(fakePaymentsRepository);
-    alterPaymentStatus = new AlterPaymentStatusService(fakePaymentsRepository);
+    createPayment = new CreatePaymentService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
+    alterPaymentStatus = new AlterPaymentStatusService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to change payment status to paid', async () => {

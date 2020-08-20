@@ -1,9 +1,11 @@
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository';
 import ListAllPaymentService from './ListAllPaymentService';
 import CreatePaymentService from './CreatePaymentService';
 import AlterPaymentStatusService from './AlterPaymentStatusService';
 
 let fakePaymentsRepository: FakePaymentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let listAllPayment: ListAllPaymentService;
 let createPayment: CreatePaymentService;
 let alterPaymentStatus: AlterPaymentStatusService;
@@ -11,10 +13,20 @@ let alterPaymentStatus: AlterPaymentStatusService;
 describe('ListAllPayment', () => {
   beforeEach(() => {
     fakePaymentsRepository = new FakePaymentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
 
-    listAllPayment = new ListAllPaymentService(fakePaymentsRepository);
-    createPayment = new CreatePaymentService(fakePaymentsRepository);
-    alterPaymentStatus = new AlterPaymentStatusService(fakePaymentsRepository);
+    listAllPayment = new ListAllPaymentService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
+    createPayment = new CreatePaymentService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
+    alterPaymentStatus = new AlterPaymentStatusService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to list all payment of a user', async () => {

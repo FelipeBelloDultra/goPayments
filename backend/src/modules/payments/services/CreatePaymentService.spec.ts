@@ -1,14 +1,20 @@
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakePaymentsRepository from '../repositories/fakes/FakePaymentsRepository';
 import CreatePaymentService from './CreatePaymentService';
 
 let fakePaymentsRepository: FakePaymentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createPayment: CreatePaymentService;
 
 describe('CreatePayment', () => {
   beforeEach(() => {
     fakePaymentsRepository = new FakePaymentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
 
-    createPayment = new CreatePaymentService(fakePaymentsRepository);
+    createPayment = new CreatePaymentService(
+      fakePaymentsRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to create a new payment', async () => {

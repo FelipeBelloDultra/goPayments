@@ -1,9 +1,11 @@
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import ListAllUserService from './ListAllUserService';
 import CreateUserService from './CreateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let fakeHashProvider: FakeHashProvider;
 let listAllUsers: ListAllUserService;
 let createUser: CreateUserService;
@@ -12,9 +14,17 @@ describe('ListAllUsers', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
+    fakeCacheProvider = new FakeCacheProvider();
 
-    listAllUsers = new ListAllUserService(fakeUsersRepository);
-    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+    listAllUsers = new ListAllUserService(
+      fakeUsersRepository,
+      fakeCacheProvider,
+    );
+    createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to list all user', async () => {
