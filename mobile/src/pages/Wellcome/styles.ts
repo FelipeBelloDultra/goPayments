@@ -34,33 +34,16 @@ export const ButtonsGroup = styled.View`
   align-items: center;
 `;
 
-export const CreateAccountButton = styled(RectButton)`
+export const Button = styled(RectButton)`
   flex: 1;
   background: #edf2f4;
   border-radius: 8px;
   height: 40px;
-  margin-right: 10px;
   justify-content: center;
   align-items: center;
 `;
 
-export const CreateAccountButtonText = styled.Text`
-  color: #2b2d42;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-export const LoginButton = styled(RectButton)`
-  flex: 1;
-  background: #edf2f4;
-  border-radius: 8px;
-  height: 40px;
-  margin-left: 10px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const LoginButtonText = styled.Text`
+export const ButtonText = styled.Text`
   color: #2b2d42;
   font-size: 16px;
   font-weight: bold;

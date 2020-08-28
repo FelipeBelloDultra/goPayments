@@ -30,6 +30,7 @@
     "prettier"
   ],
   "rules": {
+    "react/jsx-one-expression-per-line": "off",
     "no-unused-expressions": "off",
     "@typescript-eslint/ban-types": "off",
     "react/prop-types": "off",
