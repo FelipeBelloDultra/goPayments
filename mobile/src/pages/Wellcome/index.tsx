@@ -15,7 +15,7 @@ import {
   ForgotPasswordButtonText,
 } from './styles';
 
-import wellcomeBackground from '../../assets/wellcome-background.png';
+import wellcomeBackground from '../../assets/wellcome/wellcome-background.png';
 
 const Wellcome: React.FC = () => {
   const navigate = useNavigation();
